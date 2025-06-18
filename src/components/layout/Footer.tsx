@@ -5,7 +5,7 @@ const Footer: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <footer className='bg-base-black text-white py-8 border-t border-neutral-900   '>
+    <footer className='bg-base-black text-white py-8 border-t border-neutral-900 mt-4  '>
       <div className=' mx-auto  px-4 sm:px-15 lg:px-25 xl:px-35  '>
         <div className='flex flex-col md:flex-row justify-between '>
           <Link

@@ -6,19 +6,27 @@ import { IoPlayCircle } from 'react-icons/io5';
 import { VideoModal } from '../../ui/Video/VideoModal';
 import CastCard from '../../container/CastCard/CastCard';
 import InfoCard from '../../ui/InfoCard/InfoCard';
-import { isMovieFavorited } from '../favoritepage/helper';
-import { formatDate, getGenreNames, handleFavoriteToggle } from './helper';
+import { formatDate, getGenreNames } from './helper';
+import { useTrailer } from '../../../hooks/useTrailer';
+import { useFavoriteToggle } from '../../../hooks/useFavoriteToggle';
+import FavoriteButton from '../../ui/FavoriteButton/FavoriteButton';
 
 const Detailpage: React.FC = () => {
-  const [isFavorite, setIsFavorite] = React.useState(false);
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const { loading, error, movie, trailerKey, cast, crew, genres } = useDetail();
-
-  React.useEffect(() => {
-    if (movie) {
-      setIsFavorite(isMovieFavorited(movie.id));
-    }
-  }, [movie]);
+  const {
+    loading,
+    error,
+    movie,
+    trailerKey: existingTrailerKey,
+    cast,
+    crew,
+    genres,
+  } = useDetail();
+  const { isModalOpen, handleWatchTrailer, closeModal, isLoading } =
+    useTrailer();
+  const { isFavorite, handleFavoriteToggle } = useFavoriteToggle({
+    movieId: movie?.id || 0,
+    movieData: movie || undefined,
+  });
 
   if (loading) return <div className='text-center py-20'>Loading...</div>;
   if (error)
@@ -27,10 +35,6 @@ const Detailpage: React.FC = () => {
 
   const genreNames = getGenreNames(movie, genres);
   const ageLimit = 13;
-
-  const handleWatchTrailer = () => {
-    if (trailerKey) setIsModalOpen(true);
-  };
 
   return (
     <div className='min-h-screen bg-base-black text-white flex flex-col'>
@@ -67,7 +71,7 @@ const Detailpage: React.FC = () => {
                 <h1 className='text-2xl sm:text-4xl font-bold'>
                   {movie.title}
                 </h1>
-                <div className='flex items-center gap-2 text-lg font-medium mt-4'>
+                <div className='flex items-center gap-2 text-md font-medium mt-4'>
                   <img
                     src='/icon-calendar.svg'
                     alt='calendar'
@@ -85,32 +89,24 @@ const Detailpage: React.FC = () => {
                   <Button
                     variant='primary'
                     icon={<IoPlayCircle size={24} />}
-                    onClick={handleWatchTrailer}
-                    disabled={!trailerKey}
-                    className='rounded-full px-10 py-3 text-lg font-bold bg-primary-300 hover:bg-primary-400 border-none w-full! md:w-57! shadow-lg'
+                    onClick={() =>
+                      handleWatchTrailer(movie.id, existingTrailerKey)
+                    }
+                    disabled={isLoading}
+                    className='rounded-full px-10 py-3 text-lg font-bold bg-primary-300 hover:bg-primary-400 border-none w-full! md:w-64! shadow-lg'
                     style={{ minWidth: 0 }}
                   >
-                    Watch Trailer
+                    {isLoading ? 'Loading...' : 'Watch Trailer'}
                   </Button>
-                  <button
-                    aria-label='Favorite'
-                    className={`aspect-square w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-full border-1 border-neutral-800 bg-neutral-950/60 shadow-lg transition-colors duration-200 shrink-0`}
-                    onClick={() =>
-                      handleFavoriteToggle(movie, isFavorite, setIsFavorite)
-                    }
-                  >
-                    <img
-                      src={
-                        isFavorite ? '/icon-fav-on.svg' : '/icon-fav-off.svg'
-                      }
-                      alt='favorite'
-                      className='w-5 h-5 sm:w-6 sm:h-6 cursor-pointer'
-                    />
-                  </button>
+                  <FavoriteButton
+                    isFavorite={isFavorite}
+                    onClick={handleFavoriteToggle}
+                    size='large'
+                  />
                 </div>
               </div>
 
-              {/* Cards */}
+              {/* Info Cards */}
               <div className='grid grid-cols-3 gap-4 mb-8'>
                 <InfoCard
                   icon='/icon-rating.svg'
@@ -132,8 +128,10 @@ const Detailpage: React.FC = () => {
           </div>
 
           {/* Overview Section */}
-          <div className='mt-8'>
-            <h2 className='text-2xl md:text-3xl font-bold mb-4'>Overview</h2>
+          <div className='md:mt-8'>
+            <h2 className='text-2xl md:text-3xl font-bold mb-4 md:mt-12'>
+              Overview
+            </h2>
             <p className='text-neutral-200 text-base leading-relaxed'>
               {movie.overview}
             </p>
@@ -163,11 +161,11 @@ const Detailpage: React.FC = () => {
           </div>
         </div>
       </div>
-      {/* Video Modal for Trailer */}
+      {/* Video Modal */}
       <VideoModal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        videoId={trailerKey || ''}
+        onClose={closeModal}
+        videoId={existingTrailerKey || ''}
       />
     </div>
   );

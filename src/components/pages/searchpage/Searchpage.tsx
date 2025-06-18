@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { useSearch } from './useSearch';
-import LargeMovieCard from '../../container/LargeMovieCard/LargeMovieCard';
+import { MovieCard } from '../../container/MovieCard/MovieCard';
 import Button from '../../ui/Button';
 import { VideoModal } from '../../ui/Video/VideoModal';
-import { getMovieTrailer } from '../../../services/movies/services';
+import { useTrailer } from '../../../hooks/useTrailer';
 
 const Searchpage: React.FC = () => {
   const { searchResults, loading, error } = useSearch();
   const [visibleCount, setVisibleCount] = useState(5);
-  const [trailerKey, setTrailerKey] = useState<string | null>(null);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [trailerLoading, setTrailerLoading] = useState(false);
+  const { trailerKey, isModalOpen, isLoading, handleWatchTrailer, closeModal } =
+    useTrailer();
 
   const showNotFound =
     searchResults && searchResults.results.length === 0 && !loading && !error;
@@ -23,16 +22,8 @@ const Searchpage: React.FC = () => {
     setVisibleCount((prev) => prev + 5);
   };
 
-  const handleWatchTrailer = async (movieId: number) => {
-    setTrailerLoading(true);
-    const key = await getMovieTrailer(movieId);
-    setTrailerKey(key);
-    setModalOpen(true);
-    setTrailerLoading(false);
-  };
-
   return (
-    <div className='px-4 sm:px-15 lg:px-25 xl:px-35 mt-20 min-h-[80vh]'>
+    <div className='px-4 sm:px-15 lg:px-25 xl:px-35 mt-20 min-h-[80vh] flex items-center justify-center'>
       {loading && <p>Loading...</p>}
       {error && <p className='text-red-500'>{error}</p>}
       {showNotFound && (
@@ -54,16 +45,12 @@ const Searchpage: React.FC = () => {
         <div className='w-full flex flex-col items-center'>
           <div className='w-full [&>*:last-child]:border-b-0'>
             {filteredResults.slice(0, visibleCount).map((movie) => (
-              <LargeMovieCard
+              <MovieCard
                 key={movie.id}
-                posterPath={movie.poster_path}
-                title={movie.title}
-                voteAverage={movie.vote_average}
-                overview={movie.overview}
+                movie={movie}
+                variant='large'
                 onWatchTrailer={() => handleWatchTrailer(movie.id)}
-                trailerAvailable={!trailerLoading}
-                id={movie.id}
-                releaseDate={movie.release_date}
+                trailerAvailable={!isLoading}
               />
             ))}
           </div>
@@ -82,8 +69,8 @@ const Searchpage: React.FC = () => {
         </div>
       )}
       <VideoModal
-        isOpen={modalOpen && !!trailerKey}
-        onClose={() => setModalOpen(false)}
+        isOpen={isModalOpen}
+        onClose={closeModal}
         videoId={trailerKey || ''}
       />
     </div>

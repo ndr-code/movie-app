@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useSlider } from '../../../hooks/useSlider';
 
 interface HeroSliderProps<T> {
   items: T[];
@@ -13,23 +14,11 @@ export const HeroSlider = <T,>({
   children,
   paused = false,
 }: HeroSliderProps<T>): React.ReactElement => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [transitioning, setTransitioning] = useState(false);
-
-  useEffect(() => {
-    if (items.length > 0 && !paused) {
-      const timer = setInterval(() => {
-        setTransitioning(true);
-        setTimeout(() => {
-          setCurrentIndex((prev) => (prev + 1) % items.length);
-          setTransitioning(false);
-        }, 200);
-      }, interval);
-
-      return () => clearInterval(timer);
-    }
-    return () => {};
-  }, [items.length, interval, paused]);
+  const { currentIndex, transitioning } = useSlider({
+    itemsLength: items.length,
+    interval,
+    paused,
+  });
 
   return (
     <div className='relative w-full h-full'>

@@ -10,8 +10,8 @@ const InfoCard: React.FC<InfoCardProps> = ({ icon, label, value }) => {
   return (
     <div className='bg-black/80 border border-neutral-900 rounded-2xl p-6 flex flex-col items-center shadow-md'>
       <img src={icon} alt={label} className='w-6 h-6 sm:w-8 sm:h-8 mb-2' />
-      <div className='text-neutral-300 text-xs sm:text-xl'>{label}</div>
-      <div className='text-lg sm:text-xl font-semibold mt-1 text-center'>
+      <div className='text-neutral-300 text-[10px] sm:text-xl'>{label}</div>
+      <div className='text-md sm:text-xl font-semibold mt-1 text-center'>
         {value}
       </div>
     </div>

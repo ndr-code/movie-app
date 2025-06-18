@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { useFavorite } from './useFavorite';
-import LargeMovieCard from '../../container/LargeMovieCard/LargeMovieCard';
+import { MovieCard } from '../../container/MovieCard/MovieCard';
 import Button from '../../ui/Button';
 import { VideoModal } from '../../ui/Video/VideoModal';
-import { getMovieTrailer } from '../../../services/movies/services';
+import { useTrailer } from '../../../hooks/useTrailer';
 
 const Favoritepage: React.FC = () => {
   const { favoriteMovies, loading, handleRemoveFromFavorites } = useFavorite();
   const [visibleCount, setVisibleCount] = useState(5);
-  const [trailerKey, setTrailerKey] = useState<string | null>(null);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [trailerLoading, setTrailerLoading] = useState(false);
+  const { trailerKey, isModalOpen, isLoading, handleWatchTrailer, closeModal } =
+    useTrailer();
 
   const showNotFound = favoriteMovies.length === 0 && !loading;
 
@@ -18,16 +17,9 @@ const Favoritepage: React.FC = () => {
     setVisibleCount((prev) => prev + 5);
   };
 
-  const handleWatchTrailer = async (movieId: number) => {
-    setTrailerLoading(true);
-    const key = await getMovieTrailer(movieId);
-    setTrailerKey(key);
-    setModalOpen(true);
-    setTrailerLoading(false);
-  };
-
   return (
-    <div className='px-4 sm:px-15 lg:px-25 xl:px-35 mt-20 min-h-[80vh]'>
+    <div className='px-4 sm:px-15 lg:px-25 xl:px-35 mt-30 min-h-[80vh]'>
+      <div className='text-2xl md:text-3xl font-bold'>Favorites</div>
       {loading && <p>Loading...</p>}
       {showNotFound && (
         <div className='flex flex-col items-center justify-center'>
@@ -48,15 +40,12 @@ const Favoritepage: React.FC = () => {
         <div className='w-full flex flex-col items-center'>
           <div className='w-full [&>*:last-child]:border-b-0'>
             {favoriteMovies.slice(0, visibleCount).map((movie) => (
-              <LargeMovieCard
+              <MovieCard
                 key={movie.id}
-                posterPath={movie.poster_path}
-                title={movie.title}
-                voteAverage={movie.vote_average}
-                overview={movie.overview}
+                movie={movie}
+                variant='large'
                 onWatchTrailer={() => handleWatchTrailer(movie.id)}
-                trailerAvailable={!trailerLoading}
-                id={movie.id}
+                trailerAvailable={!isLoading}
                 onRemoveFromFavorites={() =>
                   handleRemoveFromFavorites(movie.id)
                 }
@@ -78,8 +67,8 @@ const Favoritepage: React.FC = () => {
         </div>
       )}
       <VideoModal
-        isOpen={modalOpen && !!trailerKey}
-        onClose={() => setModalOpen(false)}
+        isOpen={isModalOpen}
+        onClose={closeModal}
         videoId={trailerKey || ''}
       />
     </div>
