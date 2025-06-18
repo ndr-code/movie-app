@@ -23,8 +23,10 @@ const CastCard: React.FC<CastCardProps> = ({ name, role, profilePath }) => {
         />
       )}
       <div className='flex flex-col justify-center p-4'>
-        <div className='font-semibold text-base text-white'>{name}</div>
-        <div className='text-sm text-neutral-400 mt-1'>{role}</div>
+        <div className='font-semibold text-lg lg:text-xl text-white'>
+          {name}
+        </div>
+        <div className='text-md lg:text-lg text-neutral-400 mt-1'>{role}</div>
       </div>
     </div>
   );

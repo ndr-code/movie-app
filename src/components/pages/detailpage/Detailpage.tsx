@@ -51,7 +51,7 @@ const Detailpage: React.FC = () => {
 
       {/* Main Content */}
       <div className=' -mt-40 z-10 relative px-4 sm:px-15 lg:px-25 xl:px-35 pb-12'>
-        <div className='max-w-7xl mx-auto'>
+        <div className='max-w-9xl mx-auto'>
           <div className='grid grid-cols-[140px_1fr] sm:grid-cols-[200px_1fr] md:grid-cols-[280px_1fr] space-x-6 md:space-x-8'>
             {/* Poster */}
             <div className='row-span-2 md:col-span-1'>
@@ -68,7 +68,7 @@ const Detailpage: React.FC = () => {
             <div className='md:col-span-2'>
               {/* Title */}
               <div className='mb-4'>
-                <h1 className='text-2xl sm:text-4xl font-bold'>
+                <h1 className='text-2xl md:text-3xl lg:text-4xl font-bold'>
                   {movie.title}
                 </h1>
                 <div className='flex items-center gap-2 text-md font-medium mt-4'>
@@ -107,7 +107,7 @@ const Detailpage: React.FC = () => {
               </div>
 
               {/* Info Cards */}
-              <div className='grid grid-cols-3 gap-4 mb-8'>
+              <div className='grid grid-cols-3 gap-4 mb-8 max-w-4xl'>
                 <InfoCard
                   icon='/icon-rating.svg'
                   label='Rating'
@@ -129,17 +129,19 @@ const Detailpage: React.FC = () => {
 
           {/* Overview Section */}
           <div className='md:mt-8'>
-            <h2 className='text-2xl md:text-3xl font-bold mb-4 md:mt-12'>
+            <h2 className='text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mt-12'>
               Overview
             </h2>
-            <p className='text-neutral-200 text-base leading-relaxed'>
+            <p className='text-neutral-200 text-base md:text-lg lg:text-xl leading-relaxed'>
               {movie.overview}
             </p>
           </div>
 
           {/* Cast & Crew */}
           <div className='mt-12'>
-            <h2 className='text-2xl md:text-3xl font-bold mb-6'>Cast & Crew</h2>
+            <h2 className='text-2xl md:text-3xl lg:text-4xl font-bold mb-6'>
+              Cast & Crew
+            </h2>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
               {cast.map((member) => (
                 <CastCard
