@@ -17,7 +17,7 @@ export const Homepage: React.FC = () => {
     loadMoreMovies,
   } = useHome();
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen] = useState(false);
   const { colCount } = useScreenSize();
   const [rowsToShow, setRowsToShow] = useState(2);
 
@@ -34,13 +34,7 @@ export const Homepage: React.FC = () => {
       {/* Hero Section */}
       {trendingMovies.length > 0 && (
         <HeroSlider items={trendingMovies} paused={isModalOpen}>
-          {(movie) => (
-            <HeroSection
-              movie={movie}
-              isModalOpen={isModalOpen}
-              setIsModalOpen={setIsModalOpen}
-            />
-          )}
+          {(movie) => <HeroSection movie={movie} />}
         </HeroSlider>
       )}
 

@@ -8,17 +8,12 @@ import { useTrailer } from '../../../hooks/useTrailer';
 
 interface HeroSectionProps {
   movie: Movie;
-  isModalOpen: boolean;
-  setIsModalOpen: (open: boolean) => void;
 }
 
-export const HeroSection = ({
-  movie,
-  isModalOpen: parentIsModalOpen,
-  setIsModalOpen: setParentIsModalOpen,
-}: HeroSectionProps) => {
+export const HeroSection = ({ movie }: HeroSectionProps) => {
   const navigate = useNavigate();
-  const { handleWatchTrailer, isLoading, trailerKey } = useTrailer();
+  const { handleWatchTrailer, isLoading, trailerKey, isModalOpen, closeModal } =
+    useTrailer();
 
   return (
     <div className='relative w-full mb-12 '>
@@ -63,8 +58,8 @@ export const HeroSection = ({
       </div>
       {trailerKey && (
         <VideoModal
-          isOpen={parentIsModalOpen}
-          onClose={() => setParentIsModalOpen(false)}
+          isOpen={isModalOpen}
+          onClose={closeModal}
           videoId={trailerKey}
         />
       )}
