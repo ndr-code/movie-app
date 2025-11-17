@@ -2,6 +2,8 @@
 
 Deployed at: https://movie-app-for-you.vercel.app/
 
+![Movie App](https://media.githubusercontent.com/media/triaji-dev/portofolio-assets/refs/heads/main/movie-app/gif/preview-movie-app-for-you.gif)
+
 ## Work Details
 
 ### Title
