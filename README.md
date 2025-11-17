@@ -1,5 +1,7 @@
 # Movie Explorer App - React & TMDB Integration
 
+Deployed at: https://movie-app-for-you.vercel.app/
+
 ## Work Details
 
 ### Title
