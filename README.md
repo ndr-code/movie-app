@@ -1,77 +1,125 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/8Lz1D25d)
-# Challenge 9 (Phase 3 - Batch 3) - Create React Movie App using TMDB movie database
+# Movie Explorer App - React & TMDB Integration
 
-# Description
+## Work Details
 
-In this assignment, you'll create a movie app using public API from TMDB. You can check the
-[API DOCUMENTATION HERE](https://developer.themoviedb.org/docs/getting-started)
+### Title
+Modern Movie Explorer Application with Real-Time TMDB Integration
 
-You'll be provided with a basic project setup, and your task will be to implement the design by writing React component utilize with Tailwind CSS v4.
+### Description
+A feature-rich, fully responsive movie exploration web application built with React and TypeScript, integrating The Movie Database (TMDB) API. This project showcases modern web development practices with a focus on user experience, performance optimization, and clean architecture.
 
-The design for this assignment is located at the following Figma link:
+**Key Features:**
+- **Dynamic Hero Section**: Auto-rotating hero slider showcasing trending movies with backdrop images, titles, and descriptions
+- **Movie Browsing**: Browse trending movies and new releases with infinite scroll functionality
+- **Advanced Search**: Real-time search functionality with debouncing for optimal performance
+- **Detailed Movie Information**: Comprehensive movie details including cast, genres, ratings, and release dates
+- **Trailer Integration**: YouTube trailer playback within modal overlays
+- **Favorites System**: Save and manage favorite movies with persistent local storage
+- **Responsive Design**: Fully optimized for mobile, tablet, and desktop devices
+- **Modern UI/UX**: Clean, intuitive interface with smooth animations and transitions
 
-[Figma Design Link](https://www.figma.com/design/PjR3Adxi8eZbS2cmdPuG52/Front-End-Developer-Test---Movie-Explorer-App?node-id=8411-143671&t=kXgzE4L8vzfam8tz-1)
+**Technical Highlights:**
+- Component-based architecture with reusable UI components
+- Custom React hooks for state management and side effects
+- TypeScript for type safety and better developer experience
+- Tailwind CSS v4 for utility-first styling
+- React Router for seamless navigation
+- Axios for efficient API calls
+- Performance optimizations including lazy loading and code splitting
+- Intersection Observer API for infinite scroll implementation
 
-The goal is to assess your ability to:
+This application demonstrates proficiency in modern front-end development, API integration, state management, and creating production-ready React applications.
 
-- Interpret a design from Figma.
-- Structure a webpage with React.
-- Apply styles using Tailwind CSS.
-- Create a responsive layout.
-- Integrate your app with public API
+### Tags
+react, typescript, movie-app, tmdb-api, responsive-design, web-development, spa, tailwindcss, movie-database, entertainment, ui-ux, frontend, javascript, api-integration, trailer-player
 
-# Folder Structure
+## Skills and Tools
 
-You are provided with the following folder structure:
+### Tools and Software
+- React 18
+- TypeScript
+- Vite
+- Tailwind CSS v4
+- Git & GitHub
+- Visual Studio Code
+- Figma (for design reference)
+- TMDB API
+- YouTube Player API
+- ESLint
 
-- |- node module
-- |- public
-- |- src
-- |-- assets
-- |-- components
-- |--- container
-- |--- layout
-- |--- pages
-- |--- ui
-- |-- hooks
-- |-- interfaces
-- |-- routes
-- |-- services
-- |-- app.tsx
-- |-- index.css
-- |-- main.tsx
+### Skills
+- React Development
+- TypeScript
+- Component Architecture
+- State Management
+- Custom Hooks
+- API Integration
+- Responsive Web Design
+- CSS/Tailwind CSS
+- RESTful API Consumption
+- Frontend Performance Optimization
+- Git Version Control
+- UI/UX Implementation
+- Single Page Application (SPA)
+- Modern JavaScript (ES6+)
 
-etc.
+## Project Details
 
-# Getting Started
+**Industry**: Movie & Entertainment
 
-Don't forget to run npm install for this project first (this project already installed libraries that you need, such as Axios, React Query, React Router DOM, Tailwindcss, clsx, react-intersection-observer)
+**Category**: Web Application Development
 
-Study the Figma Design: Open the Figma link and thoroughly examine the design. Understand the layout, spacing, colors, typography, and responsive behavior.
+**Project Type**: Full-Stack Frontend Application
 
-Start to code using all structured files that provided (you can also add what you need)
+**Duration**: Ongoing Development
 
-# Important Notes
-
-You don't have to change index.html or main.tsx, also you can create a structure folder as you want, but remember to stay on reusable principe
-
-# Evaluation System
-
-The evaluation for this assignment will be based on the following criteria:
-
-1.  **Structure and organize component:** How you can split the code into components and organize it
-2.  **Props Handling:** How you use props effectively
-3.  **Conditional Rendering:** How you display a different component with conditions
-4.  **Reusable Components:** How can you reuse the component so you're code will be cleaner
-5.  **Code Clarity:** Code quality checking
-6.  **Hooks usage:** How can you utilize hooks effectively (u don't have to use all hooks)
+**Status**: Production Ready
 
 ---
 
-# How to Upload your Challenge
+## Installation & Setup
 
-Check this module: [click this](https://orchid-clematis-3e4.notion.site/Panduan-Penggunaan-Git-Untuk-Upload-Assignment-e2d80a19b3684f5d8f1a4209dcf85445?pvs=73)
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── container/      # Complex components
+│   ├── layout/         # Layout components
+│   ├── pages/          # Page components
+│   └── ui/             # Reusable UI components
+├── hooks/              # Custom React hooks
+├── interfaces/         # TypeScript interfaces
+├── routes/             # Route configuration
+├── services/           # API services
+└── styles/             # Global styles
+```
+
+## Environment Variables
+
+Create a `.env` file in the root directory:
+
+```
+VITE_TMDB_API_KEY=your_api_key_here
+VITE_TMDB_BASE_URL=https://api.themoviedb.org/3
+```
 
 ---
 
-🎉 Congratulations on working on this assignment! Utilize the _playground_ feature in Figma to help you understand how the design should look on various devices. Keep experimenting and don't hesitate to look for references if you encounter difficulties. You can definitely produce great work! 🚀 Keep up the spirit, cheers!! 🎈
+**Developer**: ndr-code  
+**Repository**: [movie-app](https://github.com/ndr-code/movie-app)  
+**License**: MIT
